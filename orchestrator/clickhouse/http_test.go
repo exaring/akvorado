@@ -130,19 +130,21 @@ func TestCustomDictHTTPEndpoints(t *testing.T) {
 	schemaConfig := schema.DefaultConfiguration()
 	schemaConfig.CustomDictionaries = make(map[string]schema.CustomDict)
 	schemaConfig.CustomDictionaries["test"] = schema.CustomDict{
-		SourceType: schema.SourceHTTP,
+		SourceType: "http",
 		Source:     ts.URL,
 	}
 	schemaConfig.CustomDictionaries["none"] = schema.CustomDict{
-		SourceType: schema.SourceHTTP,
+		SourceType: "http",
 		Source:     "http://example.invalid/none.csv",
 	}
 	schemaConfig.CustomDictionaries["s3_invalid_config"] = schema.CustomDict{
-		SourceType: schema.SourceS3,
-		S3Config:   "invalid",
+		SourceType: "s3",
+		SourceConfig: schema.S3DictSourceConfiguration{
+			S3Config: "invalid",
+		},
 	}
 	schemaConfig.CustomDictionaries["s3_no_config"] = schema.CustomDict{
-		SourceType: schema.SourceS3,
+		SourceType: "s3",
 	}
 	sch, err := schema.New(schemaConfig)
 	if err != nil {
@@ -188,7 +190,7 @@ func TestCustomDictHTTPEndpoints(t *testing.T) {
 			ContentType: "text/plain; charset=utf-8",
 			StatusCode:  500,
 			FirstLines: []string{
-				"unable to fetch custom dict csv file from S3",
+				"unable to fetch custom dict csv file '' from S3",
 			},
 		},
 		{
@@ -196,7 +198,7 @@ func TestCustomDictHTTPEndpoints(t *testing.T) {
 			ContentType: "text/plain; charset=utf-8",
 			StatusCode:  500,
 			FirstLines: []string{
-				"unable to fetch custom dict csv file from S3",
+				"unable to fetch custom dict csv file '' from S3",
 			},
 		},
 	}

@@ -70,7 +70,7 @@ func TestConfigurationUnmarshallerHook(t *testing.T) {
 							},
 						},
 						Layout:     "hashed",
-						SourceType: SourceFile,
+						SourceType: "file",
 					},
 				},
 			},
@@ -91,7 +91,7 @@ func TestConfigurationUnmarshallerHook(t *testing.T) {
 				CustomDictionaries: map[string]CustomDict{
 					"test": {
 						Layout:     "hashed",
-						SourceType: SourceS3,
+						SourceType: "s3",
 					},
 				},
 			},
@@ -112,7 +112,7 @@ func TestConfigurationUnmarshallerHook(t *testing.T) {
 				CustomDictionaries: map[string]CustomDict{
 					"test": {
 						Layout:     "hashed",
-						SourceType: SourceHTTP,
+						SourceType: "http",
 					},
 				},
 			},

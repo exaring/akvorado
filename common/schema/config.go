@@ -28,13 +28,13 @@ type Configuration struct {
 
 // CustomDict represents a single custom dictionary
 type CustomDict struct {
-	Keys       []CustomDictKey       `validate:"required,dive"`
-	Attributes []CustomDictAttribute `validate:"required,dive"`
-	Source     string                `validate:"required"`
-	Layout     string                `validate:"required,oneof=hashed iptrie complex_key_hashed"`
-	Dimensions []string              `validate:"required"`
-	SourceType CustomDictSourceType
-	S3Config   string
+	Keys         []CustomDictKey       `validate:"required,dive"`
+	Attributes   []CustomDictAttribute `validate:"required,dive"`
+	Source       string                `validate:"required"`
+	Layout       string                `validate:"required,oneof=hashed iptrie complex_key_hashed"`
+	Dimensions   []string              `validate:"required"`
+	SourceType   string
+	SourceConfig DictSourceConfiguration
 }
 
 // CustomDictKey represents a single key (matching) column of a custom dictionary
@@ -136,7 +136,7 @@ func (c *Component) GetCustomDictConfig() map[string]CustomDict {
 func DefaultCustomDictConfiguration() CustomDict {
 	return CustomDict{
 		Layout:     "hashed",
-		SourceType: SourceFile,
+		SourceType: "file",
 	}
 }
 
